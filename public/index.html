@@ -29,6 +29,15 @@
                 <h1>WeatherNow</h1>
             </div>
             <p class="subtitle">Real-time weather, wherever you are.</p>
+
+            <!-- Live local clock -->
+            <div class="local-clock" id="localClock" aria-label="Local time" aria-live="off">
+                <span class="clock-icon" aria-hidden="true">🕐</span>
+                <div class="clock-body">
+                    <time id="clockTime" class="clock-time"></time>
+                    <span id="clockDate" class="clock-date"></span>
+                </div>
+            </div>
         </header>
 
         <!-- Search -->
