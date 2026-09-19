@@ -221,6 +221,70 @@ h1 {
     letter-spacing: 0.01em;
 }
 
+/* ─── Local Clock ───────────────────────────────────────────── */
+.local-clock {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 18px;
+    padding: 10px 20px;
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--r-pill);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 0 0 1px var(--clr-border), 0 4px 16px rgba(0, 0, 0, 0.3);
+    transition: border-color var(--duration-normal), box-shadow var(--duration-normal);
+    cursor: default;
+    animation: clockAppear 0.6s var(--ease-out-expo) both;
+}
+
+.local-clock:hover {
+    border-color: var(--clr-border-hi);
+    box-shadow: 0 0 0 1px var(--clr-accent-dim), 0 4px 20px rgba(79, 195, 247, 0.12);
+}
+
+@keyframes clockAppear {
+    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.clock-icon {
+    font-size: 18px;
+    line-height: 1;
+    animation: clockPulse 2s ease-in-out infinite;
+}
+
+@keyframes clockPulse {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(79, 195, 247, 0)); }
+    50%       { filter: drop-shadow(0 0 8px rgba(79, 195, 247, 0.6)); }
+}
+
+.clock-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    line-height: 1.2;
+}
+
+.clock-time {
+    font-family: var(--font-mono);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--clr-accent);
+    font-variant-numeric: tabular-nums;
+}
+
+.clock-date {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--clr-text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
 /* ─── Search Section ────────────────────────────────────────── */
 .search-section {
     display: flex;

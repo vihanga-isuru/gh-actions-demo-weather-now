@@ -155,3 +155,41 @@ cityInput.addEventListener("keydown", (e) => {
         searchForm.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }));
     }
 });
+
+/* ─── Local Clock ─────────────────────────────────────────── */
+const clockTimeEl = document.getElementById("clockTime");
+const clockDateEl = document.getElementById("clockDate");
+
+const DAY_NAMES   = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function updateClock() {
+    const now   = new Date();
+
+    // Time — hh:mm:ss AM/PM
+    let hours   = now.getHours();
+    const mins  = String(now.getMinutes()).padStart(2, "0");
+    const secs  = String(now.getSeconds()).padStart(2, "0");
+    const ampm  = hours >= 12 ? "PM" : "AM";
+    hours       = hours % 12 || 12;
+    const timeStr = `${String(hours).padStart(2, "0")}:${mins}:${secs} ${ampm}`;
+
+    // Date — Mon, 19 Sep 2026
+    const dateStr = `${DAY_NAMES[now.getDay()].slice(0, 3)}, ${now.getDate()} ${MONTH_NAMES[now.getMonth()]} ${now.getFullYear()}`;
+
+    if (clockTimeEl.textContent !== timeStr) {
+        clockTimeEl.textContent = timeStr;
+        clockTimeEl.dateTime    = now.toISOString();
+    }
+    if (clockDateEl.textContent !== dateStr) {
+        clockDateEl.textContent = dateStr;
+    }
+}
+
+// Render immediately, then sync to the next whole second
+updateClock();
+const msUntilNextSecond = 1000 - (Date.now() % 1000);
+setTimeout(() => {
+    updateClock();
+    setInterval(updateClock, 1000);
+}, msUntilNextSecond);
