@@ -189,47 +189,4 @@ describe("WeatherNow API", () => {
         });
     });
 
-    describe("failing test cases", () => {
-        test("invalid API key should return 200 (will fail)", async () => {
-            mockFetchOnce(async () => jsonResponse(401, { message: "invalid key" }));
-
-            const app = loadApp();
-
-            const response = await request(app)
-                .get("/api/weather")
-                .query({ city: "London" });
-
-            // This expectation is incorrect and will fail
-            expect(response.statusCode).toBe(200);
-        });
-
-        test("valid city returns incorrect weather data (will fail)", async () => {
-            mockFetchOnce(async () => jsonResponse(200, {
-                name: "London",
-                sys: { country: "GB" },
-                main: { temp: 14.4, feels_like: 12.9, humidity: 82 },
-                weather: [{ description: "overcast clouds", icon: "04d" }],
-                wind: { speed: 4.1 }
-            }));
-
-            const app = loadApp();
-
-            const response = await request(app)
-                .get("/api/weather")
-                .query({ city: "London" });
-
-            // This expectation is incorrect and will fail
-            expect(response.body).toEqual({
-                city: "London",
-                country: "GB",
-                temperature: 20, // Incorrect temperature
-                feelsLike: 15,   // Incorrect feels-like temperature
-                description: "clear sky", // Incorrect description
-                humidity: 50,    // Incorrect humidity
-                windSpeed: 2.0,  // Incorrect wind speed
-                icon: "01d"      // Incorrect icon
-            });
-        });
-    });
-
 });
