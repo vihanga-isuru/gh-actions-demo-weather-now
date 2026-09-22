@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/vihanga-isuru/gh-actions-demo-weather-now#readme",
   "dependencies": {
-    "dotenv": "^17.4.2",
+    "dotenv": "^18.0.1",
     "express": "^5.2.1"
   },
   "devDependencies": {
